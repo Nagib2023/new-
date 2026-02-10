@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Wood - Premium Wood Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #8e6c3a;
+            --accent-color: #d4af37;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: var(--dark-color);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 25px;
+            background: white;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .nav-tabs {
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .nav-tabs .nav-link {
+            color: var(--primary-color);
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 12px 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            background: transparent;
+        }
+
+        .nav-tabs .nav-link:hover:not(.active) {
+            color: var(--secondary-color);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+
+        .btn-warning {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--dark-color);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            border-color: var(--danger-color);
+        }
+
+        .balance-card {
+            text-align: center;
+            padding: 25px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .positive-balance {
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .negative-balance {
+            color: var(--danger-color);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .product-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .form-section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .wood-info {
+            background: linear-gradient(135deg, #f9f3e0 0%, #e8dcc5 100%);
+            border-left: 5px solid var(--secondary-color);
+            border-radius: 8px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .stat-card p {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 15px;
+        }
+
+        .action-buttons .btn {
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center">
+                    <i class="fas fa-tree fa-3x" style="color: var(--accent-color);"></i>
+                </div>
+                <div class="col-md-8 text-center">
+                    <h1 class="display-5 fw-bold mb-2">Perfect Wood</h1>
+                    <p class="lead mb-0">Premium Quality Mehogani Wood Solutions</p>
+                </div>
+                <div class="col-md-2 text-center">
+                    <i class="fas fa-cube fa-3x" style="color: var(--accent-color);"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab">
+                    <i class="fas fa-home me-2"></i>Dashboard
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">
+                    <i class="fas fa-boxes me-2"></i>Products
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="customers-tab" data-bs-toggle="tab" data-bs-target="#customers" type="button" role="tab">
+                    <i class="fas fa-users me-2"></i>Customers
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="suppliers-tab" data-bs-toggle="tab" data-bs-target="#suppliers" type="button" role="tab">
+                    <i class="fas fa-truck-loading me-2"></i>Suppliers
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="myTabContent">
+            <!-- Dashboard Tab -->
+            <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                <div class="alert alert-light info-panel mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-1 text-center">
+                            <i class="fas fa-info-circle fa-2x" style="color: var(--secondary-color);"></i>
+                        </div>
+                        <div class="col-md-11">
+                            <h5 class="mb-2"><i class="fas fa-chart-line me-2"></i>Business Overview</h5>
+                            <p class="mb-0">Track your products, customer balances, supplier relationships, and profit in one place.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="icon-circle">
+                                <i class="fas fa-boxes"></i>
+                            </div>
+                            <h3 id="total-products">0</h3>
+                            <p>TOTAL PRODUCTS</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="icon-circle">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <h3 id="total-customers">0</h3>
+                            <p>TOTAL CUSTOMERS</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="icon-circle">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <h3 id="total-sellers">0</h3>
+                            <p>TOTAL SUPPLIERS</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="icon-circle">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <h3 id="total-profit" class="positive-balance">৳0.00</h3>
+                            <p>TOTAL PROFIT</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-dark text-white">
+                                <h5 class="mb-0"><i class="fas fa-wallet me-2"></i>Customer Balances</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="customer-balances-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-dark text-white">
+                                <h5 class="mb-0"><i class="fas fa-hand-holding-usd me-2"></i>Supplier Balances</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="seller-balances-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Tab -->
+            <div class="tab-pane fade" id="products" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-section">
+                            <h5 class="mb-4"><i class="fas fa-plus-circle me-2"></i>Add New Product</h5>
+                            <form id="product-form">
+                                <div class="mb-3">
+                                    <label for="productName" class="form-label"><i class="fas fa-tag me-2"></i>Product Name (Bengali)</label>
+                                    <input type="text" class="form-control" id="productName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productPrice" class="form-label"><i class="fas fa-money-bill-wave me-2"></i>Price (BDT)</label>
+                                    <input type="number" class="form-control" id="productPrice" step="0.01" min="0" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productQuantity" class="form-label"><i class="fas fa-layer-group me-2"></i>Quantity</label>
+                                    <input type="number" class="form-control" id="productQuantity" min="0" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productCategory" class="form-label"><i class="fas fa-cubes me-2"></i>Category</label>
+                                    <select class="form-select" id="productCategory" required>
+                                        <option value="">Select Category</option>
+                                        <option value="পাল্লা">পাল্লা</option>
+                                        <option value="চৌকাঠ">চৌকাঠ</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mt-3">
+                                    <i class="fas fa-save me-2"></i>Add Product
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-box-open me-2"></i>All Products</h5>
+                                <button class="btn btn-outline-light btn-sm" onclick="loadProducts()">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover product-table">
+                                        <thead>
+                                            <tr>
+                                                <th><i class="fas fa-hashtag"></i> ID</th>
+                                                <th><i class="fas fa-signature"></i> Name</th>
+                                                <th><i class="fas fa-tag"></i> Price</th>
+                                                <th><i class="fas fa-layer-group"></i> Quantity</th>
+                                                <th><i class="fas fa-cube"></i> Category</th>
+                                                <th><i class="fas fa-cogs"></i> Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="products-table-body">
+                                            <!-- Products will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customers Tab -->
+            <div class="tab-pane fade" id="customers" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-section">
+                            <h5 class="mb-4"><i class="fas fa-user-plus me-2"></i>Add New Customer</h5>
+                            <form id="customer-form">
+                                <div class="mb-3">
+                                    <label for="customerName" class="form-label"><i class="fas fa-user me-2"></i>Customer Name</label>
+                                    <input type="text" class="form-control" id="customerName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="customerPhone" class="form-label"><i class="fas fa-phone me-2"></i>Phone Number</label>
+                                    <input type="tel" class="form-control" id="customerPhone">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="customerEmail" class="form-label"><i class="fas fa-envelope me-2"></i>Email</label>
+                                    <input type="email" class="form-control" id="customerEmail">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="customerLocation" class="form-label"><i class="fas fa-map-marker-alt me-2"></i>Location</label>
+                                    <input type="text" class="form-control" id="customerLocation">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="customerBalance" class="form-label"><i class="fas fa-wallet me-2"></i>Initial Balance (BDT)</label>
+                                    <input type="number" class="form-control" id="customerBalance" step="0.01" min="0" value="0">
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mt-3">
+                                    <i class="fas fa-user-check me-2"></i>Add Customer
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-users me-2"></i>Customer List</h5>
+                                <button class="btn btn-outline-light btn-sm" onclick="loadCustomers()">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th><i class="fas fa-hashtag"></i> ID</th>
+                                                <th><i class="fas fa-user"></i> Name</th>
+                                                <th><i class="fas fa-phone"></i> Phone</th>
+                                                <th><i class="fas fa-map-marker-alt"></i> Location</th>
+                                                <th><i class="fas fa-cogs"></i> Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="customers-table-body">
+                                            <!-- Customers will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suppliers Tab -->
+            <div class="tab-pane fade" id="suppliers" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-section">
+                            <h5 class="mb-4"><i class="fas fa-truck-loading me-2"></i>Add New Supplier</h5>
+                            <form id="seller-form">
+                                <div class="mb-3">
+                                    <label for="sellerName" class="form-label"><i class="fas fa-building me-2"></i>Supplier Name</label>
+                                    <input type="text" class="form-control" id="sellerName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sellerPhone" class="form-label"><i class="fas fa-phone me-2"></i>Phone Number</label>
+                                    <input type="tel" class="form-control" id="sellerPhone">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sellerEmail" class="form-label"><i class="fas fa-envelope me-2"></i>Email</label>
+                                    <input type="email" class="form-control" id="sellerEmail">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sellerLocation" class="form-label"><i class="fas fa-map-marker-alt me-2"></i>Location</label>
+                                    <input type="text" class="form-control" id="sellerLocation">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sellerBalance" class="form-label"><i class="fas fa-hand-holding-usd me-2"></i>Initial Balance (BDT)</label>
+                                    <input type="number" class="form-control" id="sellerBalance" step="0.01" min="0" value="0">
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mt-3">
+                                    <i class="fas fa-truck me-2"></i>Add Supplier
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-truck me-2"></i>Supplier List</h5>
+                                <button class="btn btn-outline-light btn-sm" onclick="loadSellers()">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th><i class="fas fa-hashtag"></i> ID</th>
+                                                <th><i class="fas fa-building"></i> Name</th>
+                                                <th><i class="fas fa-phone"></i> Phone</th>
+                                                <th><i class="fas fa-map-marker-alt"></i> Location</th>
+                                                <th><i class="fas fa-hand-holding-usd"></i> Balance</th>
+                                                <th><i class="fas fa-cogs"></i> Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sellers-table-body">
+                                            <!-- Suppliers will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="mb-0"><strong>পারফেক্ট উড - প্রিমিয়াম কোয়ালিটি মেহেগনি কাঠের সমাধান</strong></p>
+                    <p class="mb-0">ফ্যাক্টরী: ওয়াশপুর গার্ডেন সিটি, ইউনিয়ন: ভাকুর্তা, থানা: সাভার, জেলা: ঢাকা</p>
+                    <p class="mb-0">মোবাইল: ০১৭১৬-১১৮৫৭৯, ০১৯২১-৭৯৮১২৯, ০১৯১৫-৭০৬০৭৬</p>
+                    <p class="mb-0">ইমেইল: perfectwoodp@gmail.com</p>
+                    <p class="mb-0">&copy; ২০২৬ পারফেক্ট উড। সর্বস্বত্ব সংরক্ষিত।</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data-manager.js"></script>
+    <script>
+        // Global variable to hold all application data in memory
+        let appData = {
+            products: [],
+            customers: [],
+            sellers: []
+        };
+
+        // Default data for first-time initialization
+        const defaultData = {
+            products: [
+                { id: 1, name: 'মেহেগনি প্লেন পাল্লা ৩৯" x ৮১" (১২ সুতা পাকা)', price: 5000, quantity: 10, category: 'পাল্লা' },
+                { id: 2, name: 'মেহেগনি প্লেন পাল্লা ৩৭" x ৮১" (১২ সুতা পাকা)', price: 4900, quantity: 10, category: 'পাল্লা' },
+                { id: 3, name: 'মেহেগনি প্লেন পাল্লা ৩৬" x ৮১" (১২ সুতা পাকা)', price: 4800, quantity: 10, category: 'পাল্লা' },
+                { id: 4, name: 'মেহেগনি প্লেন পাল্লা ৩৩" x ৮১" (১২ সুতা পাকা)', price: 4200, quantity: 10, category: 'পাল্লা' },
+                { id: 5, name: 'মেহেগনি প্লেন পাল্লা ২৭" x ৮১" (১২ সুতা পাকা)', price: 3800, quantity: 10, category: 'পাল্লা' },
+                { id: 6, name: 'মেহেগনি চৌকাঠ ৩০" x ৮৪" (৬" - ২.৫" বাজার সাইজ)', price: 2300, quantity: 10, category: 'চৌকাঠ' },
+                { id: 7, name: 'মেহেগনি চৌকাঠ ৩৬" x ৮৪" (৬" - ২.৫" বাজার সাইজ)', price: 2300, quantity: 10, category: 'চৌকাঠ' },
+                { id: 8, name: 'মেহেগনি চৌকাঠ ৪০" x ৮৪" (৬" - ২.৫" বাজার সাইজ)', price: 2300, quantity: 10, category: 'চৌকাঠ' },
+                { id: 9, name: 'মেহেগনি চৌকাঠ ৪২" x ৮৪" (৬" - ২.৫" বাজার সাইজ)', price: 2300, quantity: 10, category: 'চৌকাঠ' },
+                { id: 10, name: 'মেহেগনি চৌকাঠ ৪২" x ৮৪" (১১" - ২.৫" বাজার সাইজ)', price: 7500, quantity: 10, category: 'চৌকাঠ' }
+            ],
+            customers: [
+                { id: 1, name: 'Mr. Rahman', phone: '০১৭১৬-১১৮৫৭৯', email: 'perfectwoodp@gmail.com', location: 'Dhaka', balance: 8665000 },
+                { id: 2, name: 'Mr. Hassan', phone: '০১৯২১-৭৯৮১২৯', email: 'info@perfectwood.com', location: 'Chittagong', balance: 0 }
+            ],
+            sellers: [
+                { id: 1, name: 'Perfect Wood Factory', phone: '০১৭১৬-১১৮৫৭৯', email: 'perfectwoodp@gmail.com', balance: 0 },
+                { id: 2, name: 'Wood Supplier Co.', phone: '০১৯২১-৭৯৮১২৯', email: 'supplier@wood.com', balance: 0 }
+            ]
+        };
+
+        // Generate unique ID
+        function generateId(array) {
+            if (array.length === 0) return 1;
+            return Math.max(...array.map(item => item.id)) + 1;
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return '৳' + Math.round(parseFloat(amount)).toLocaleString('bn-BD');
+        }
+
+        // Load data from storage
+        async function loadDataFromStorage() {
+            try {
+                const data = await DataManager.loadData();
+                
+                // Check if data exists, if not use default data
+                if (data.products.length === 0 && data.customers.length === 0 && data.sellers.length === 0) {
+                    console.log('No data found, using default data');
+                    appData = { ...defaultData };
+                    await saveDataToStorage();
+                } else {
+                    appData = data;
+                }
+            } catch (error) {
+                console.error('Error loading data:', error);
+                appData = { ...defaultData };
+            }
+        }
+
+        // Save data to storage
+        async function saveDataToStorage() {
+            try {
+                await DataManager.saveData(appData);
+                console.log('Data saved successfully');
+            } catch (error) {
+                console.error('Error saving data:', error);
+            }
+        }
+
+        // Load products
+        function loadProducts() {
+            const tbody = document.getElementById('products-table-body');
+            tbody.innerHTML = '';
+
+            appData.products.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${formatCurrency(product.price)}</td>
+                    <td>${product.quantity}</td>
+                    <td><span class="badge bg-secondary">${product.category}</span></td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-warning" onclick="editProduct(${product.id})" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteProduct(${product.id})" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Update dashboard counters
+            document.getElementById('total-products').textContent = appData.products.length;
+        }
+
+        // Add or update product
+        document.getElementById('product-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = document.getElementById('product-form');
+            const editingId = form.dataset.editingId;
+
+            if (editingId) {
+                // Update existing product
+                const productIndex = appData.products.findIndex(p => p.id == editingId);
+                if (productIndex !== -1) {
+                    appData.products[productIndex] = {
+                        id: parseInt(editingId),
+                        name: document.getElementById('productName').value,
+                        price: parseFloat(document.getElementById('productPrice').value),
+                        quantity: parseInt(document.getElementById('productQuantity').value),
+                        category: document.getElementById('productCategory').value
+                    };
+
+                    // Reset form to original state
+                    form.reset();
+                    delete form.dataset.editingId;
+
+                    // Reset button to original state
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    submitButton.innerHTML = '<i class="fas fa-save me-2"></i>Add Product';
+                    submitButton.classList.remove('btn-success');
+                    submitButton.classList.add('btn-primary');
+
+                    await saveDataToStorage();
+                    loadProducts();
+                    alert('Product updated successfully!');
+                }
+            } else {
+                // Add new product
+                const newProduct = {
+                    id: generateId(appData.products),
+                    name: document.getElementById('productName').value,
+                    price: parseFloat(document.getElementById('productPrice').value),
+                    quantity: parseInt(document.getElementById('productQuantity').value),
+                    category: document.getElementById('productCategory').value
+                };
+
+                appData.products.push(newProduct);
+
+                // Reset form
+                form.reset();
+
+                // Save data and reload products
+                await saveDataToStorage();
+                loadProducts();
+
+                alert('Product added successfully!');
+            }
+        });
+
+        // Edit product
+        function editProduct(id) {
+            const product = appData.products.find(p => p.id === id);
+
+            if (!product) {
+                alert('Product not found!');
+                return;
+            }
+
+            // Fill the form with current product data
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productQuantity').value = product.quantity;
+            document.getElementById('productCategory').value = product.category;
+
+            // Change the submit button text and store the product ID
+            const submitButton = document.getElementById('product-form').querySelector('button[type="submit"]');
+            submitButton.innerHTML = '<i class="fas fa-sync-alt me-2"></i>Update Product';
+            submitButton.classList.remove('btn-primary');
+            submitButton.classList.add('btn-success');
+
+            // Store the ID of the product being edited
+            document.getElementById('product-form').dataset.editingId = id;
+        }
+
+        // Delete product
+        async function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                appData.products = appData.products.filter(product => product.id !== id);
+                await saveDataToStorage();
+                loadProducts();
+            }
+        }
+
+        // Load customers
+        function loadCustomers() {
+            const tbody = document.getElementById('customers-table-body');
+            tbody.innerHTML = '';
+
+            appData.customers.forEach(customer => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${customer.id}</td>
+                    <td><a href="#" onclick="viewCustomerDetails(${customer.id})" class="text-decoration-none">${customer.name}</a></td>
+                    <td>${customer.phone || ''}</td>
+                    <td>${customer.location || ''}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-danger" onclick="deleteCustomer(${customer.id})" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Update dashboard counters
+            document.getElementById('total-customers').textContent = appData.customers.length;
+        }
+
+        // Add customer
+        document.getElementById('customer-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const newCustomer = {
+                id: generateId(appData.customers),
+                name: document.getElementById('customerName').value,
+                phone: document.getElementById('customerPhone').value,
+                email: document.getElementById('customerEmail').value,
+                location: document.getElementById('customerLocation').value,
+                balance: parseFloat(document.getElementById('customerBalance').value) || 0
+            };
+
+            appData.customers.push(newCustomer);
+
+            // Reset form
+            document.getElementById('customer-form').reset();
+
+            // Save data and reload customers
+            await saveDataToStorage();
+            loadCustomers();
+
+            alert('Customer added successfully!');
+        });
+
+        // View customer details
+        function viewCustomerDetails(id) {
+            // Save the customer ID in sessionStorage for the next page
+            sessionStorage.setItem('currentCustomerId', id);
+            // Open the customer details page in a new tab
+            window.open('customer-details.html', '_blank');
+        }
+
+        // View supplier details
+        function viewSupplierDetails(id) {
+            // Save the supplier ID in sessionStorage for the next page
+            sessionStorage.setItem('currentSupplierId', id);
+            // Open the supplier details page in a new tab
+            window.open('supplier-details.html', '_blank');
+        }
+
+        // Delete customer
+        async function deleteCustomer(id) {
+            if (confirm('Are you sure you want to delete this customer?')) {
+                appData.customers = appData.customers.filter(customer => customer.id !== id);
+                await saveDataToStorage();
+                loadCustomers();
+                loadDashboardBalances();
+            }
+        }
+
+        // Load suppliers
+        function loadSellers() {
+            const tbody = document.getElementById('sellers-table-body');
+            tbody.innerHTML = '';
+
+            appData.sellers.forEach(seller => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${seller.id}</td>
+                    <td><a href="#" onclick="viewSupplierDetails(${seller.id})" class="text-decoration-none">${seller.name}</a></td>
+                    <td>${seller.phone || ''}</td>
+                    <td>${seller.location || ''}</td>
+                    <td class="${seller.balance >= 0 ? 'positive-balance' : 'negative-balance'}">${formatCurrency(seller.balance)}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-success" onclick="updateSellerBalance(${seller.id})" title="Update Balance">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteSeller(${seller.id})" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Update dashboard counters
+            document.getElementById('total-sellers').textContent = appData.sellers.length;
+        }
+
+        // Add supplier
+        document.getElementById('seller-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const newSeller = {
+                id: generateId(appData.sellers),
+                name: document.getElementById('sellerName').value,
+                phone: document.getElementById('sellerPhone').value,
+                email: document.getElementById('sellerEmail').value,
+                location: document.getElementById('sellerLocation').value,
+                balance: parseFloat(document.getElementById('sellerBalance').value) || 0
+            };
+
+            appData.sellers.push(newSeller);
+
+            // Reset form
+            document.getElementById('seller-form').reset();
+
+            // Save data and reload suppliers
+            await saveDataToStorage();
+            loadSellers();
+
+            alert('Supplier added successfully!');
+        });
+
+        // Update supplier balance (placeholder function)
+        async function updateSellerBalance(id) {
+            const amount = prompt('Enter new balance amount:');
+            if (amount !== null) {
+                const sellerIndex = appData.sellers.findIndex(s => s.id === id);
+                if (sellerIndex !== -1) {
+                    appData.sellers[sellerIndex].balance = parseFloat(amount);
+                    await saveDataToStorage();
+                    loadSellers();
+                    loadDashboardBalances();
+                }
+            }
+        }
+
+        // Delete supplier
+        async function deleteSeller(id) {
+            if (confirm('Are you sure you want to delete this supplier?')) {
+                appData.sellers = appData.sellers.filter(seller => seller.id !== id);
+                await saveDataToStorage();
+                loadSellers();
+                loadDashboardBalances();
+            }
+        }
+
+        // Load dashboard balances
+        function loadDashboardBalances() {
+            // Load customer balances
+            const customerBalancesDiv = document.getElementById('customer-balances-list');
+            customerBalancesDiv.innerHTML = '';
+
+            if (appData.customers.length === 0) {
+                customerBalancesDiv.innerHTML = '<p class="text-muted text-center py-3">No customers found</p>';
+            } else {
+                // Calculate total due balance
+                const totalDueBalance = appData.customers.reduce((sum, customer) => {
+                    return customer.balance > 0 ? sum + customer.balance : sum;
+                }, 0);
+
+                // Show only customers with due balances (positive balances - meaning they owe money)
+                const dueCustomers = appData.customers.filter(customer => customer.balance > 0);
+                if (dueCustomers.length === 0) {
+                    customerBalancesDiv.innerHTML = '<p class="text-muted text-center py-3">No due balances</p>';
+                } else {
+                    // Sort by balance amount (highest due first)
+                    dueCustomers.sort((a, b) => b.balance - a.balance);
+
+                    // Add total due balance at the top
+                    const totalDiv = document.createElement('div');
+                    totalDiv.className = 'd-flex justify-content-between border-bottom py-2 mb-2';
+                    totalDiv.style.fontWeight = 'bold';
+                    totalDiv.style.fontSize = '1.1em';
+                    totalDiv.innerHTML = `
+                        <span>Current Due Balance</span>
+                        <span class="positive-balance">${formatCurrency(totalDueBalance)}</span>
+                    `;
+                    customerBalancesDiv.appendChild(totalDiv);
+
+                    dueCustomers.forEach(customer => {
+                        const balanceClass = 'positive-balance'; // Due balances are positive
+                        const div = document.createElement('div');
+                        div.className = 'd-flex justify-content-between border-bottom py-2';
+                        div.innerHTML = `
+                            <span>${customer.name}</span>
+                            <span class="${balanceClass}">Due: ${formatCurrency(customer.balance)}</span>
+                        `;
+                        customerBalancesDiv.appendChild(div);
+                    });
+                }
+            }
+
+            // Load supplier balances
+            const sellerBalancesDiv = document.getElementById('seller-balances-list');
+            sellerBalancesDiv.innerHTML = '';
+
+            if (appData.sellers.length === 0) {
+                sellerBalancesDiv.innerHTML = '<p class="text-muted text-center py-3">No suppliers found</p>';
+            } else {
+                appData.sellers.forEach(seller => {
+                    const balanceClass = seller.balance >= 0 ? 'positive-balance' : 'negative-balance';
+                    const div = document.createElement('div');
+                    div.className = 'd-flex justify-content-between border-bottom py-2';
+                    div.innerHTML = `
+                        <span>${seller.name}</span>
+                        <span class="${balanceClass}">${formatCurrency(seller.balance)}</span>
+                    `;
+                    sellerBalancesDiv.appendChild(div);
+                });
+            }
+
+            // Calculate and display total profit
+            calculateAndDisplayProfit();
+        }
+
+        // Calculate and display total profit
+        function calculateAndDisplayProfit() {
+            // Calculate total sales to customers based on transactions
+            let totalSales = 0;
+            
+            // Calculate total purchases from suppliers 
+            let totalPurchases = 0;
+
+            // Also consider supplier balances as outstanding liabilities/expenses
+            let supplierLiabilities = 0;
+            appData.sellers.forEach(seller => {
+                // Only count positive balances as expenses (money we owe)
+                if (seller.balance > 0) {
+                    supplierLiabilities += seller.balance;
+                }
+            });
+
+            // Total expenses = purchases from suppliers + outstanding supplier liabilities
+            const totalExpenses = totalPurchases + supplierLiabilities;
+
+            // Calculate profit
+            const profit = totalSales - totalExpenses;
+
+            // Display profit in the dashboard
+            const profitElement = document.getElementById('total-profit');
+            if (profitElement) {
+                const profitClass = profit >= 0 ? 'positive-balance' : 'negative-balance';
+                profitElement.textContent = formatCurrency(profit);
+                profitElement.className = profitClass;
+            }
+        }
+
+        // Initialize the app
+        async function initApp() {
+            // Load data from storage first
+            await loadDataFromStorage();
+            
+            // Load initial data
+            loadProducts();
+            loadCustomers();
+            loadSellers();
+            loadDashboardBalances();
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

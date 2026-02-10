@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Transaction Details - Perfect Wood</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #8e6c3a;
+            --accent-color: #d4af37;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: var(--dark-color);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            background: white;
+        }
+
+        .balance-card {
+            text-align: center;
+            padding: 25px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .positive-balance {
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        .negative-balance {
+            color: var(--danger-color);
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        .transaction-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+
+        .back-btn:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center">
+                    <i class="fas fa-truck fa-3x" style="color: var(--accent-color);"></i>
+                </div>
+                <div class="col-md-8 text-center">
+                    <h1 class="display-6 fw-bold mb-2">Supplier Transaction Details</h1>
+                    <p class="lead mb-0">View all transactions and due balance for the selected supplier</p>
+                </div>
+                <div class="col-md-2 text-center">
+                    <a href="index.html" class="btn back-btn">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Main
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card summary-card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 text-center">
+                                <h5>Supplier Name</h5>
+                                <p class="mb-0" id="supplier-name">Loading...</p>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h5>Phone</h5>
+                                <p class="mb-0" id="supplier-phone">Loading...</p>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h5>Email</h5>
+                                <p class="mb-0" id="supplier-email">Loading...</p>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h5>Location</h5>
+                                <p class="mb-0" id="supplier-location">N/A</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card balance-card">
+                    <h5>Current Due Balance</h5>
+                    <h2 id="current-balance" class="mb-0">৳0.00</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card balance-card">
+                    <h5>Total Purchases</h5>
+                    <h2 id="total-purchases" class="mb-0">৳0.00</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card balance-card">
+                    <h5>Total Payments</h5>
+                    <h2 id="total-payments" class="mb-0">৳0.00</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Add New Transaction</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="transaction-form">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="transactionDate" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="transactionDate" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="productId" class="form-label">Product</label>
+                                    <select class="form-select" id="productId" required>
+                                        <option value="">Select Product</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="quantity" class="form-label">Quantity</label>
+                                    <input type="number" class="form-control" id="quantity" min="1" value="1" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="paymentAmount" class="form-label">Payment</label>
+                                    <input type="number" class="form-control" id="paymentAmount" min="0" step="0.01" value="0">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>&nbsp;</label>
+                                    <button type="submit" class="btn btn-primary w-100">Add Transaction</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-exchange-alt me-2"></i>Transaction History</h5>
+                        <button class="btn btn-outline-light btn-sm" onclick="loadTransactions()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover transaction-table">
+                                <thead>
+                                    <tr>
+                                        <th><i class="fas fa-calendar"></i> Date</th>
+                                        <th><i class="fas fa-box"></i> Product</th>
+                                        <th><i class="fas fa-list-ol"></i> Quantity</th>
+                                        <th><i class="fas fa-tag"></i> Unit Price</th>
+                                        <th><i class="fas fa-calculator"></i> Total</th>
+                                        <th><i class="fas fa-credit-card"></i> Payment</th>
+                                        <th><i class="fas fa-wallet"></i> Due Amount</th>
+                                        <th><i class="fas fa-cogs"></i> Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactions-body">
+                                    <!-- Transactions will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data-manager.js"></script>
+    <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Set today's date as default
+            document.getElementById('transactionDate').valueAsDate = new Date();
+
+            // Load supplier details and transactions
+            await loadSupplierDetails();
+            await loadProductsForSelect();
+            await loadTransactions();
+        });
+
+        // Get data from storage
+        async function getData() {
+            return await DataManager.loadData();
+        }
+
+        // Get supplier transactions from storage
+        async function getSupplierTransactions() {
+            return await DataManager.loadSupplierTransactions();
+        }
+
+        // Save supplier transactions to storage
+        async function saveSupplierTransactions(transactions) {
+            await DataManager.saveSupplierTransactions(transactions);
+        }
+
+        // Load supplier details
+        async function loadSupplierDetails() {
+            const supplierId = sessionStorage.getItem('currentSupplierId');
+            if (!supplierId) {
+                document.getElementById('supplier-name').textContent = 'Supplier not found';
+                return;
+            }
+
+            const data = await getData();
+            const supplier = data.sellers.find(s => s.id == supplierId);
+
+            if (supplier) {
+                document.getElementById('supplier-name').textContent = supplier.name;
+                document.getElementById('supplier-phone').textContent = supplier.phone || 'N/A';
+                document.getElementById('supplier-email').textContent = supplier.email || 'N/A';
+                document.getElementById('supplier-location').textContent = supplier.location || 'N/A';
+
+                // Calculate and display current balance
+                const balanceElement = document.getElementById('current-balance');
+                const balanceClass = supplier.balance >= 0 ? 'positive-balance' : 'negative-balance';
+                balanceElement.textContent = formatCurrency(supplier.balance);
+                balanceElement.className = balanceClass;
+            } else {
+                document.getElementById('supplier-name').textContent = 'Supplier not found';
+            }
+        }
+
+        // Load products for the select dropdown
+        async function loadProductsForSelect() {
+            const data = await getData();
+            const selectElement = document.getElementById('productId');
+
+            // Clear existing options
+            selectElement.innerHTML = '<option value="">Select Product</option>';
+
+            // Add products to the dropdown
+            data.products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.id;
+                option.textContent = `${product.name} (${formatCurrency(product.price)})`;
+                selectElement.appendChild(option);
+            });
+        }
+
+        // Load transactions for the current supplier
+        async function loadTransactions() {
+            const supplierId = sessionStorage.getItem('currentSupplierId');
+            if (!supplierId) return;
+
+            const transactions = await getSupplierTransactions();
+            const supplierTransactions = transactions.filter(t => t.supplierId == supplierId);
+
+            const tbody = document.getElementById('transactions-body');
+            tbody.innerHTML = '';
+
+            // Calculate totals
+            let totalPurchases = 0;
+            let totalPayments = 0;
+
+            for (const transaction of supplierTransactions) {
+                const product = await getProductById(transaction.productId);
+                const productName = product ? product.name : 'Unknown Product';
+                const unitPrice = product ? product.price : 0;
+                const total = transaction.quantity * unitPrice;
+
+                totalPurchases += total;
+                totalPayments += transaction.payment || 0;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${formatDate(transaction.date)}</td>
+                    <td>${productName}</td>
+                    <td>${transaction.quantity}</td>
+                    <td>${formatCurrency(unitPrice)}</td>
+                    <td>${formatCurrency(total)}</td>
+                    <td>${formatCurrency(transaction.payment || 0)}</td>
+                    <td>${formatCurrency(total - (transaction.payment || 0))}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="deleteTransaction(${transaction.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            }
+
+            // Update summary cards
+            document.getElementById('total-purchases').textContent = formatCurrency(totalPurchases);
+            document.getElementById('total-payments').textContent = formatCurrency(totalPayments);
+            document.getElementById('current-balance').textContent = formatCurrency(totalPurchases - totalPayments);
+        }
+
+        // Get product by ID
+        async function getProductById(productId) {
+            const data = await getData();
+            return data.products.find(p => p.id == productId);
+        }
+
+        // Format date as DD/MM/YYYY
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('bn-BD');
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return '৳' + Math.round(parseFloat(amount)).toLocaleString('bn-BD');
+        }
+
+        // Add new transaction
+        document.getElementById('transaction-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const supplierId = sessionStorage.getItem('currentSupplierId');
+            if (!supplierId) {
+                alert('Supplier not found');
+                return;
+            }
+
+            const date = document.getElementById('transactionDate').value;
+            const productId = document.getElementById('productId').value;
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const payment = parseFloat(document.getElementById('paymentAmount').value) || 0;
+
+            if (!date || !productId || quantity <= 0) {
+                alert('Please fill all required fields correctly');
+                return;
+            }
+
+            const transactions = await getSupplierTransactions();
+            const newTransaction = {
+                id: transactions.length > 0 ? Math.max(...transactions.map(t => t.id)) + 1 : 1,
+                supplierId: parseInt(supplierId),
+                productId: parseInt(productId),
+                date: date,
+                quantity: quantity,
+                payment: payment
+            };
+
+            transactions.push(newTransaction);
+            await saveSupplierTransactions(transactions);
+
+            // Reset form
+            document.getElementById('quantity').value = 1;
+            document.getElementById('paymentAmount').value = 0;
+
+            // Reload transactions
+            await loadTransactions();
+
+            alert('Transaction added successfully!');
+        });
+
+        // Delete transaction
+        async function deleteTransaction(transactionId) {
+            if (confirm('Are you sure you want to delete this transaction?')) {
+                let transactions = await getSupplierTransactions();
+                transactions = transactions.filter(t => t.id != transactionId);
+                await saveSupplierTransactions(transactions);
+                await loadTransactions();
+            }
+        }
+    </script>
+</body>
+</html>
